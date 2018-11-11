@@ -1,0 +1,1 @@
+This program computes stocks for companies with given company input

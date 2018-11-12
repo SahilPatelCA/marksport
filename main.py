@@ -9,7 +9,6 @@ app = Flask(__name__)
 # from cvxopt import blas, solvers
 # import pandas as pd
 np.random.seed(123)
-@app.route("/")
 class Stock:
     SD=0
     average_return=0
@@ -96,12 +95,6 @@ def main():
         means.append(stock1.stockReturn())
         num_entries_iter -= 1
 
-    num_entries_iter = 0
-    while (num_entries_iter < num_entries):
-        stds.append
-        # print(stock_list[num_entries_iter].stockSD())
-        # print(stock_list[num_entries_iter].stockReturn())
-        num_entries_iter += 1
 
     ## NUMBER OF ASSETS
     n_assets = num_entries

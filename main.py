@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, globals
+from flask import Flask, render_template, request
 import urllib
 import json
 import math
 import werkzeug
-
 import numpy as np
 app = Flask(__name__)
 # import cvxopt as opt
@@ -11,9 +10,6 @@ app = Flask(__name__)
 # import pandas as pd
 np.random.seed(123)
 @app.route("/")
-def hello():
-    return render_template("index.html")
-@app.route("/function")
 class Stock:
     SD=0
     average_return=0
@@ -73,12 +69,17 @@ def rand_weights(n):
     return k / sum(k)
 
 
+@app.route("/")
+def hello():
+    return render_template("index.html")
 
+@app.route("/index", methods=["POST"])
 def main():
 
     riskFree = 2
 
-    num_entries = int(input("Enter num of Stocks: "))
+    num_entries = request.form["stocks"]
+    num_entries = int(num_entries)
     if ((num_entries<1) or (num_entries>4)):
         return
 
@@ -88,7 +89,7 @@ def main():
 
     num_entries_iter = num_entries
     while (num_entries_iter > 0):
-        inputString = input("Enter a stock name: ")
+        inputString = request.form["company"]
         stock1 = Stock(inputString)
         stock_list.append(stock1)
         stds.append(stock1.stockSD())
@@ -142,12 +143,14 @@ def main():
         n_obs_iter -= 1
     # print(maxSharp_loc)
 
+    the_output = str("")
     num_entries_iter=0
     while num_entries_iter < num_entries:
         print(str(stock_list[num_entries_iter].stockName()) + ": " + str(100 * port_weights_list[maxSharp_loc-1].item(num_entries_iter)) + "%")
+        the_output = (the_output + str(stock_list[num_entries_iter].stockName()) + ": " + str(100 * port_weights_list[maxSharp_loc-1].item(num_entries_iter)) + "%")
         num_entries_iter += 1
 
-    return
+    return the_output
 
-main()
+#main()
 app.run()

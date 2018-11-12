@@ -1,5 +1,3 @@
-def storage():
-    numberOfCompanies
-    input numberOfCompanies
-    company = ""
-    input company
+def test():
+    op = input()
+    print(op + " is fake and gay.)

@@ -1,3 +1,6 @@
 def test():
     op = input()
-    print(op + " is fake and gay.)
+    print(op + " is fake and gay.")
+
+
+test()
